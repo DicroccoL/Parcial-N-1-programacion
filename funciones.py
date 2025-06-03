@@ -229,7 +229,6 @@ def buscar_participante_por_nombre(participantes, puntuaciones):
 
 # -----------------------------
 # Función que muestra los 3 participantes con mayor puntaje promedio.
-# No usa listas ni sort, solo variables auxiliares para determinar los 3 mejores.
 def mostrar_top_3_participantes(participantes, puntuaciones):
     # Inicializa los 3 mejores promedios encontrados (con valores imposibles bajos)
     mejor1 = -1
