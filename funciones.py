@@ -174,28 +174,38 @@ def promedio_por_jurado(matriz):
         print(f"\nEl promedio del jurado {j+1}: {promedio}")
 
 
+
 # -----------------------------
-# Función que determina cuál fue el jurado más estricto (el que dio el promedio más bajo).
-# Muestra el número del jurado y su promedio.
+# Función que determina cuál jurado fue el más estricto,
+# es decir, el que otorgó el promedio de notas más bajo.
 def jurado_mas_estricto(matriz):
+    # Verifica si la matriz está vacía (no se cargaron puntuaciones)
     if not matriz:
         print("Error: No hay puntuaciones cargadas.")
-        return
+        return  # Termina la función si no hay datos
 
-    cantidad_jurados = len(matriz[0])
+    # Calcula la cantidad de jurados (columnas) y participantes (filas)
+    cantidad_jurados = len(matriz[0])  # Se asume que todas las filas tienen misma longitud
     cantidad_participantes = len(matriz)
 
+    # Inicializa el promedio más bajo y el índice del jurado más estricto
     promedio_minimo = None
     jurado_mas_estricto = -1
 
+    # Recorre cada jurado (columna por columna)
     for j in range(cantidad_jurados):
+        # Obtiene las notas que ese jurado dio a todos los participantes
         notas_jurado = [matriz[i][j] for i in range(cantidad_participantes)]
+
+        # Calcula el promedio de ese jurado
         promedio = calcular_promedio(notas_jurado)
 
+        # Compara para ver si este promedio es el más bajo hasta ahora
         if promedio_minimo is None or promedio < promedio_minimo:
-            promedio_minimo = promedio
-            jurado_mas_estricto = j
+            promedio_minimo = promedio  # Guarda el nuevo promedio más bajo
+            jurado_mas_estricto = j     # Guarda el índice del jurado más estricto
 
+    # Muestra el jurado más estricto (se suma 1 porque el índice empieza en 0)
     print(f"El jurado más estricto fue el jurado {jurado_mas_estricto + 1} con  promedio de {promedio_minimo}\n")
 
 
@@ -218,20 +228,25 @@ def buscar_participante_por_nombre(participantes, puntuaciones):
 
 
 # -----------------------------
-# Función que calcula y muestra los tres participantes con mayor puntaje promedio.
+# Función que muestra los 3 participantes con mayor puntaje promedio.
+# No usa listas ni sort, solo variables auxiliares para determinar los 3 mejores.
 def mostrar_top_3_participantes(participantes, puntuaciones):
+    # Inicializa los 3 mejores promedios encontrados (con valores imposibles bajos)
     mejor1 = -1
     mejor2 = -1
     mejor3 = -1
 
+    # Inicializa los nombres correspondientes a esos 3 mejores promedios
     nombre1 = ""
     nombre2 = ""
     nombre3 = ""
 
+    # Recorre todos los participantes
     for i in range(len(participantes)):
-        nombre = participantes[i]
-        promedio = calcular_promedio(puntuaciones[i])
+        nombre = participantes[i]  # Nombre del participante actual
+        promedio = calcular_promedio(puntuaciones[i])  # Calcula su promedio
 
+        # Si el promedio es mayor que el mejor1, se reordenan todos (suben 1 lugar)
         if promedio > mejor1:
             mejor3 = mejor2
             nombre3 = nombre2
@@ -242,6 +257,7 @@ def mostrar_top_3_participantes(participantes, puntuaciones):
             mejor1 = promedio
             nombre1 = nombre
 
+        # Si no es el mejor, pero sí mejor que el segundo
         elif promedio > mejor2:
             mejor3 = mejor2
             nombre3 = nombre2
@@ -249,14 +265,17 @@ def mostrar_top_3_participantes(participantes, puntuaciones):
             mejor2 = promedio
             nombre2 = nombre
 
+        # Si no es mejor que el primero ni el segundo, pero sí mejor que el tercero
         elif promedio > mejor3:
             mejor3 = promedio
             nombre3 = nombre
 
-    print("\nLos 3 participantes  con mayor puntaje promedio son: ")
+    # Muestra el top 3 final
+    print("\nLos 3 participantes con mayor puntaje promedio son: ")
     print(f"1- {nombre1} - Promedio: {mejor1}")
     print(f"2- {nombre2} - Promedio: {mejor2}")
     print(f"3- {nombre3} - Promedio: {mejor3}\n")
+
 
 
 # -----------------------------
