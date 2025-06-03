@@ -230,23 +230,23 @@ def buscar_participante_por_nombre(participantes, puntuaciones):
 # -----------------------------
 # Función que muestra los 3 participantes con mayor puntaje promedio.
 def mostrar_top_3_participantes(participantes, puntuaciones):
-    # Inicializa los 3 mejores promedios encontrados (con valores imposibles bajos)
-    mejor1 = -1
-    mejor2 = -1
-    mejor3 = -1
+    # Inicializa los 3 mejores promedios como None (aún no hay ninguno cargado)
+    mejor1 = None
+    mejor2 = None
+    mejor3 = None
 
-    # Inicializa los nombres correspondientes a esos 3 mejores promedios
+    # Inicializa los nombres asociados a esos promedios
     nombre1 = ""
     nombre2 = ""
     nombre3 = ""
 
-    # Recorre todos los participantes
+    # Recorre todos los participantes para calcular sus promedios
     for i in range(len(participantes)):
-        nombre = participantes[i]  # Nombre del participante actual
-        promedio = calcular_promedio(puntuaciones[i])  # Calcula su promedio
+        nombre = participantes[i]  # Toma el nombre del participante actual
+        promedio = calcular_promedio(puntuaciones[i])  # Calcula su promedio a partir de las puntuaciones
 
-        # Si el promedio es mayor que el mejor1, se reordenan todos (suben 1 lugar)
-        if promedio > mejor1:
+        # Si no hay mejor1 aún, o el promedio actual es más alto, desplaza los anteriores y actualiza el mejor1
+        if mejor1 is None or promedio > mejor1:
             mejor3 = mejor2
             nombre3 = nombre2
 
@@ -256,20 +256,20 @@ def mostrar_top_3_participantes(participantes, puntuaciones):
             mejor1 = promedio
             nombre1 = nombre
 
-        # Si no es el mejor, pero sí mejor que el segundo
-        elif promedio > mejor2:
+        # Si no es el mejor, pero sí supera al segundo mejor
+        elif mejor2 is None or promedio > mejor2:
             mejor3 = mejor2
             nombre3 = nombre2
 
             mejor2 = promedio
             nombre2 = nombre
 
-        # Si no es mejor que el primero ni el segundo, pero sí mejor que el tercero
-        elif promedio > mejor3:
+        # Si no supera a los dos primeros, pero sí al tercero
+        elif mejor3 is None or promedio > mejor3:
             mejor3 = promedio
             nombre3 = nombre
 
-    # Muestra el top 3 final
+    # Muestra los tres mejores participantes con su promedio
     print("\nLos 3 participantes con mayor puntaje promedio son: ")
     print(f"1- {nombre1} - Promedio: {mejor1}")
     print(f"2- {nombre2} - Promedio: {mejor2}")
