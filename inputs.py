@@ -74,3 +74,4 @@ while True:
     
     # Limpia la pantalla para mostrar el menú nuevamente (solo funciona en Windows)
     os.system("cls")
+
